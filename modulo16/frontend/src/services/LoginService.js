@@ -1,33 +1,24 @@
-import { useState } from "react";
 import InstanciaAxios from "../api/InstanciaAxios";
 
-const LoginService = async (userName , password) => {
-  //const[userData, setUserData] = useState('');
+const LoginService = async (userName, password) => {
   console.log(`Login Service - userName: ${userName} - Password: ${password}`);
-  try{
-
-    // Faz a autenticacao no backend, recebendo o JWT em caso de sucesso
-    const jwt = await InstanciaAxios.post(
-      `/auth/login`,{
-        email: userName,
-        password: password
-      }
-    );
-    /*.then(result => { 
-      console.log('Login Service Result data: ' + JSON.stringify(result.data));
-      //setUserData(result.data);
-    });*/
-
-    //console.log('userData no LoginService: ' + JSON.stringify(userData));
-
-    //return userData;
-
-    return jwt.data;
-
-  }catch(error){
-    console.log('Erro ao realizar login: ' + JSON.stringify(error));
-    return false;
+  try {
+    const response = await InstanciaAxios.post('/auth/login', {
+      email: userName,
+      password: password
+    });
+    console.log('Login Service Result data: ', response.data);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      console.error('Erro ao realizar login: ', error.response.data);
+    } else if (error.request) {
+      console.error('Erro ao realizar login - No response received: ', error.request);
+    } else {
+      console.error('Erro ao realizar login: ', error.message);
+    }
+    throw error;
   }
-}
+};
 
-export {LoginService};
+export default LoginService;

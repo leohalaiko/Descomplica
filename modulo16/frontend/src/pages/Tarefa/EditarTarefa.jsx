@@ -32,7 +32,7 @@ const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefa, getTarefa
   //Abaixo setamos os valores dos states (que popularão o formulário mais abaixo) com os valores do state Tarefa,
   //  recebido como props do componente ListarTarefa.
   useEffect(() => {
-    //console.log('Tarefa selecionada: ' + JSON.stringify(tarefa));
+    console.log('Tarefa selecionada: ' + JSON.stringify(tarefa));
 
     //Pega apenas a data, no formato yyyy-mm-dd
     let dataInicio = tarefa.tarefaInicio.substring(0, tarefa.tarefaInicio.length - 10);
